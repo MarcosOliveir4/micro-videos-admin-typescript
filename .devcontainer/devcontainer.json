@@ -57,7 +57,9 @@
         "GitHub.copilot-chat",
         "eamodio.gitlens",
         "esbenp.prettier-vscode",
-        "EditorConfig.EditorConfig"
+        "EditorConfig.EditorConfig",
+        "Orta.vscode-jest",
+        "firsttris.vscode-jest-runner"
       ]
     }
   }
