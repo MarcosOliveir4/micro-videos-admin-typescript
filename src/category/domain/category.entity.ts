@@ -1,10 +1,18 @@
+import { Uuid } from "../../shared";
+
 export type CategoryConstructorProps = {
-  category_id?: string;
+  category_id?: Uuid;
   name: string;
   description?: string | null;
   is_active?: boolean;
   created_at?: Date;
 };
+
+export type CategoryToJSON =
+  | CategoryConstructorProps
+  | {
+      category_id: string;
+    };
 
 export type CategoryCreateCommand = {
   name: string;
@@ -13,14 +21,14 @@ export type CategoryCreateCommand = {
 };
 
 export class Category {
-  category_id: string;
+  category_id: Uuid;
   name: string;
   description: string | null;
   is_active: boolean;
   created_at: Date;
 
   constructor(props: CategoryConstructorProps) {
-    this.category_id = props.category_id;
+    this.category_id = props.category_id ?? new Uuid();
     this.name = props.name;
     this.description = props.description ?? null;
     this.is_active = props.is_active ?? true;
@@ -48,9 +56,9 @@ export class Category {
     this.is_active = false;
   }
 
-  toJSON(): CategoryConstructorProps {
+  toJSON(): CategoryToJSON {
     return {
-      category_id: this.category_id,
+      category_id: this.category_id.uuid,
       name: this.name,
       description: this.description,
       is_active: this.is_active,

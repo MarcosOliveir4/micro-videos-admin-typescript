@@ -5,8 +5,12 @@ export class Uuid extends ValueObject {
   readonly uuid: string;
   constructor(id?: string) {
     super();
-    this.uuid = id || uuidv4();
+    this.uuid = id || Uuid.create();
     this.validate();
+  }
+
+  static create() {
+    return uuidv4();
   }
 
   private validate(): void {

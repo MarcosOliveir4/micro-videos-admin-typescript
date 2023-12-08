@@ -27,4 +27,11 @@ describe("Uuid Unit Tests", () => {
     expect(validateSpy).toHaveBeenCalled();
     expect(validateSpy).toHaveBeenCalledTimes(1);
   });
+
+  describe("create static method", () => {
+    it("should create a valid uuid", () => {
+      const uuid = Uuid.create();
+      expect(uuid).toBeDefined();
+    });
+  });
 });
