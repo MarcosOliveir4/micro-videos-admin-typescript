@@ -1,4 +1,5 @@
-import { Uuid } from "../../shared";
+import { Uuid, ValidatorRules } from "../../shared";
+import { CategoryValidatorFactory } from "./category.validator";
 
 export type CategoryConstructorProps = {
   category_id?: Uuid;
@@ -40,7 +41,13 @@ export class Category {
     return category;
   }
 
+  static validate(entity: Category) {
+    const validator = CategoryValidatorFactory.create();
+    return validator.validate(entity);
+  }
+
   changeName(name: string): void {
+    ValidatorRules.values(name, "name").required().string().maxLength(255);
     this.name = name;
   }
 
