@@ -2,6 +2,10 @@ import { Uuid } from "../../../shared";
 import { Category, CategoryCreateCommand } from "../category.entity";
 
 describe("Category Unit Tests", () => {
+  let validateSpy: jest.SpyInstance;
+  beforeEach(() => {
+    validateSpy = jest.spyOn(Category, "validate");
+  });
   describe("constructor", () => {
     it("should create a category with default values", () => {
       const category = new Category({
@@ -42,6 +46,7 @@ describe("Category Unit Tests", () => {
       expect(category.description).toBeNull();
       expect(category.is_active).toBeTruthy();
       expect(category.created_at).toBeInstanceOf(Date);
+      expect(validateSpy).toHaveBeenCalledTimes(1);
     });
     it("should create a category with description", () => {
       const category = Category.create({
@@ -54,6 +59,7 @@ describe("Category Unit Tests", () => {
       expect(category.description).toBe("Movie description");
       expect(category.is_active).toBeTruthy();
       expect(category.created_at).toBeInstanceOf(Date);
+      expect(validateSpy).toHaveBeenCalledTimes(1);
     });
     it("should create a category with all values", () => {
       const category = Category.create({
@@ -67,6 +73,7 @@ describe("Category Unit Tests", () => {
       expect(category.description).toBe("Movie description");
       expect(category.is_active).toBeFalsy();
       expect(category.created_at).toBeInstanceOf(Date);
+      expect(validateSpy).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -79,6 +86,7 @@ describe("Category Unit Tests", () => {
       expect(category.name).toBe("Movie");
       category.changeName("Movie 2");
       expect(category.name).toBe("Movie 2");
+      expect(validateSpy).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -91,6 +99,7 @@ describe("Category Unit Tests", () => {
       expect(category.description).toBeNull();
       category.changeDescription("Movie description");
       expect(category.description).toBe("Movie description");
+      expect(validateSpy).toHaveBeenCalledTimes(2);
     });
   });
 

@@ -38,6 +38,7 @@ export class Category {
 
   static create(props: CategoryCreateCommand): Category {
     const category = new Category(props);
+    Category.validate(category);
     return category;
   }
 
@@ -47,12 +48,13 @@ export class Category {
   }
 
   changeName(name: string): void {
-    ValidatorRules.values(name, "name").required().string().maxLength(255);
     this.name = name;
+    Category.validate(this);
   }
 
   changeDescription(description: string): void {
     this.description = description;
+    Category.validate(this);
   }
 
   activate(): void {
